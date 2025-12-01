@@ -24,6 +24,12 @@
     </x-alerta>
     @else
 
+    <a href="{{ route('carrito.ver') }}" 
+        class="inline-block mb-4 bg-blue-500 text-white px-4 py-2 rounded">
+        🛒 Ver Carrito
+    </a>
+
+
     @foreach ($cursos as $curso)
         <li>
             <x-tarjeta-curso :curso="$curso" :mostrar-vacantes="true" />

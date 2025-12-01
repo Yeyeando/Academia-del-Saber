@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CarritoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,19 @@ Route::middleware(['auth'])->group(function () {
     // Guardar curso
     Route::post('/cursos', [CursoController::class, 'store'])
         ->name('cursos.store');
+
+     // Carrito
+    Route::post('/carrito/agregar/{curso}', [CarritoController::class, 'agregar'])
+        ->name('carrito.agregar');
+
+    Route::get('/carrito', [CarritoController::class, 'ver'])
+        ->name('carrito.ver');
+
+    Route::delete('/carrito/eliminar/{id}', [CarritoController::class, 'eliminar'])
+        ->name('carrito.eliminar');
+
+    Route::post('/carrito/vaciar', [CarritoController::class, 'vaciar'])
+        ->name('carrito.vaciar');
 
     // Editar curso
     Route::get('/cursos/{curso}/edit', [CursoController::class, 'edit'])

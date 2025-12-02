@@ -12,4 +12,22 @@
         <p><strong>{{ __('messages.end_date') }}:</strong> {{ $curso->fecha_fin }} </p>
     @endif
     <a href="{{ route('cursos.show', $curso->id) }}">{{ __('messages.see_details') }}</a>
+    {{-- NUEVO: Formulario para agregar al carrito --}}
+    @php
+        $carrito = session('carrito', []);
+        $enCarrito = isset($carrito[$curso->id]);
+    @endphp
+    @if($enCarrito)
+            <p class="text-green-600 font-bold mt-4">
+                ✔ Este curso ya está en tu carrito
+            </p>
+        @else
+            <form action="{{ route('carrito.agregar', $curso->id) }}" method="POST" class="mt-4">
+                @csrf
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                    🛒 Añadir al carrito
+                </button>
+            </form>
+        @endif
+
 </div>

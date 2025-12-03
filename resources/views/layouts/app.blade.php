@@ -13,6 +13,10 @@
     <!--Cambiar idioma-->
     <a href="{{ url('/') }}" class="mr-4">{{ __('messages.home') }}</a>
     <a href="{{ route('cursos.index') }}" class="mr-4">{{ __('messages.courses') }}</a>
+    
+    @can('create', \App\Models\Curso::class)
+        <a href="{{ route('cursos.create') }}" class="mr-4">Crear</a>
+    @endcan
 
     <form method="POST" action="{{ route('logout') }}" id="logout-form">
     @csrf

@@ -1,36 +1,43 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ config('app.name', 'Academia del saber') }}</title>
+    @vite(['resources/css/app.css','resources/js/app.js'])
+</head>
+<body class="font-sans antialiased">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<nav class="bg-gray-100 p-4">
+    <h1 class="text-xl font-bold inline-block mr-6">Academia del saber</h1>
+    
+    <!--Cambiar idioma-->
+    <a href="{{ url('/') }}" class="mr-4">{{ __('messages.home') }}</a>
+    <a href="{{ route('cursos.index') }}" class="mr-4">{{ __('messages.courses') }}</a>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <form method="POST" action="{{ route('logout') }}" id="logout-form">
+    @csrf
+    <button type="submit">Logout</button>
+    </form>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    
 
-            @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+    <!-- Selector de idioma -->
+    <span class="ml-4">
+        Idioma:
+        <a href="{{ route('cambiar.idioma', 'es') }}">ES</a> |
+        <a href="{{ route('cambiar.idioma', 'en') }}">EN</a>
+    </span>
+</nav>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+<!-- Esto reemplaza a $slot (vistas Breeze) -->
+<main class="p-6">
+    {{ $slot ?? '' }}
+</main>
+
+<footer class="text-center py-4 text-sm text-gray-600">
+    &copy; {{ date('Y') }} Academia del saber
+</footer>
+
+</body>
 </html>

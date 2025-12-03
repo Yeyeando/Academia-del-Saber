@@ -41,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'mensaje' => $e->getMessage(),
                 'tipo' => get_class($e),
             ]);
-            return response()->view('errors.tienda-no-encontrada', [], 404);
+            return response()->view('errors.curso-no-encontrado', [], 404);
         });
     })->create();
 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarritoController;
+use Symfony\Component\HttpFoundation\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,5 +93,23 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'verified'])
     ->get('/dashboard', fn() => view('dashboard'))
     ->name('dashboard');
+
+Route::get('/idioma/{lang}', function (Request $request, $lang) {
+
+    if (!in_array($lang, ['es', 'en'])) {
+        abort(400);
+    }
+
+    // Guardar en la sesión
+    session(['locale' => $lang]);
+
+    // Crear cookie NO cifrada (importante para bootstrap/app.php)
+    setcookie('locale', $lang, time() + 60 * 60 * 24 * 365, '/');
+
+    // Volver a la página anterior
+    return back();
+
+})->name('cambiar.idioma');
+
 
 require __DIR__.'/auth.php';

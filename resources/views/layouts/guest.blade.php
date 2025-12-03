@@ -6,6 +6,17 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <body class="font-sans antialiased">
+
+<nav class="bg-gray-100 p-4">
+    <h1 class="text-xl font-bold inline-block mr-6">Academia del saber</h1>
+    
+    <!--Cambiar idioma-->
+    <a href="{{ url('/') }}" class="mr-4">{{ __('messages.home') }}</a>
+    <a href="{{ route('cursos.index') }}" class="mr-4">{{ __('messages.courses') }}</a>
+
+    <a href="{{ url('/login') }}" class="mr-4">Login</a>
+    <a href="{{ url('/register') }}" class="mr-4">Register</a>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <h2>{{ __('messages.course_list') }}</</h2>
 
     <x-tarjeta-destacada>
@@ -35,6 +36,11 @@
             <x-tarjeta-curso :curso="$curso" :mostrar-vacantes="true" />
         </li>
     @endforeach
-
     @endif
+    
+    <div class="mt-4">
+        {{ $cursos->links() }}
+    </div>
+
+
     </x-app-layout>

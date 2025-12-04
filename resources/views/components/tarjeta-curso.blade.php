@@ -10,6 +10,12 @@
         <p><strong>{{ __('messages.vacantes') }}:</strong> {{ $curso->vacantes }}</p>
         <p><strong>{{ __('messages.start_date') }}:</strong> {{ $curso->fecha_inicio }} </p>
         <p><strong>{{ __('messages.end_date') }}:</strong> {{ $curso->fecha_fin }} </p>
+        @if($curso->categoria)
+            <p>Categoría: {{ $curso->categoria->nombre }}</p>
+        @else
+            <p>Sin categoría</p>
+        @endif
+
     @endif
     <a href="{{ route('cursos.show', $curso->id) }}">{{ __('messages.see_details') }}</a>
     {{-- NUEVO: Formulario para agregar al carrito --}}

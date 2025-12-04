@@ -26,6 +26,7 @@ class StoreCursoRequest extends FormRequest
             'fecha_inicio' => 'required|date|after_or_equal:today',
             'fecha_fin' => 'required|date|after:fecha_inicio',
             'foto'   => 'nullable|image|max:2048',
+            'categoria_id' => 'nullable|exists:categorias,id',
         ];
     }
 /*

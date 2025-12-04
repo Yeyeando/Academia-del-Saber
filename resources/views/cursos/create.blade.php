@@ -41,7 +41,16 @@
         <small style="color:red">{{ $message }}</small>
     @enderror
 
-    <br><br>
+    <br>
+    <label for="categoria_id">Categoría:</label>
+    <select name="categoria_id" id="categoria_id">
+        <option value="">Sin categoría</option>
+        @foreach(App\Models\Categoria::all() as $cat)
+            <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+        @endforeach
+    </select>
+
+    <br>
 
     <a href="{{ route('cursos.index') }}">{{ __('messages.back_to_list') }}</a>
     <button type="submit">{{ __('messages.save') }}</button>

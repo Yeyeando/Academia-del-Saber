@@ -35,5 +35,24 @@
                 </button>
             </form>
         @endif
-
+    {{-- Botones admin --}}
+    @can('update', $curso)
+        <a href="{{ route('cursos.edit', $curso->id) }}" 
+           style="color: blue; display: inline-block; margin-top: 10px;">
+            ✏️ Editar
+        </a>
+    @endcan
+    
+    @can('delete', $curso)
+        <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" 
+                style="color: red; margin-left: 10px;"
+                onclick="return confirm('¿Seguro que quieres eliminar este curso?')">
+                🗑 Eliminar
+            </button>
+        </form>
+    @endcan
+       
 </div>

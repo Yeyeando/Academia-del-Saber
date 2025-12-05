@@ -83,18 +83,54 @@ class CursoController extends Controller
 
     public function edit(string $id)
     {
-        $this->authorize('update', Curso::findOrFail($id));
+        $curso = Curso::findOrFail($id);
+        $this->authorize('update', $curso);
+
+        $categorias = Categoria::orderBy('nombre')->get();
+
+        return view('cursos.edit', compact('curso', 'categorias'));
     }
+
 
     public function update(Request $request, string $id)
     {
-        $this->authorize('update', Curso::findOrFail($id));
+        $curso = Curso::findOrFail($id);
+        $this->authorize('update', $curso);
+
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0',
+            'vacantes' => 'required|integer|min:1',
+            'categoria_id' => 'required|exists:categorias,id',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+            'foto' => 'nullable|image',
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('cursos', 'public');
+        }
+
+        $curso->update($data);
+
         Cache::flush();
+
+        return redirect()->route('cursos.index')
+            ->with('status', 'Curso actualizado correctamente');
     }
+
 
     public function destroy(string $id)
     {
-        $this->authorize('delete', Curso::findOrFail($id));
+        $curso = Curso::findOrFail($id);
+        $this->authorize('delete', $curso);
+    
+        $curso->delete();
+    
         Cache::flush();
+    
+        return redirect()->route('cursos.index')
+            ->with('status', 'Curso eliminado');
     }
+
 }

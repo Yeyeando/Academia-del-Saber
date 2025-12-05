@@ -18,11 +18,66 @@
     <x-alerta tipo="exito">
         ✓ Los cursos se han cargado correctamente.
     </x-alerta>
-    
+    {{-- Formulario de búsqueda y filtros --}}
+    <div style="background: #f0f0f0; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+        <h3>🔍 Buscar y Filtrar Cursos</h3>
+        
+        <form method="GET" action="{{ route('cursos.index') }}">
+            <div style="display: flex; gap: 10px; align-items: end; flex-wrap: wrap;">
+                
+                {{-- Campo de búsqueda por nombre --}}
+                <div>
+                    <label for="busqueda">Buscar por nombre:</label><br>
+                    <input type="text" 
+                           id="busqueda" 
+                           name="busqueda" 
+                           value="{{ request('busqueda') }}"
+                           placeholder="Ej: Manzanas"
+                           style="padding: 8px; width: 200px;">
+                </div>
+                
+                {{-- Filtro por categoría --}}
+                <div>
+                    <label for="categoria_id">Categoría:</label><br>
+                    <select name="categoria_id" id="categoria_id" style="padding: 8px; width: 200px;">
+                        <option value="">Todas las categorías</option>
+                        @foreach($categorias as $cat)
+                            <option value="{{ $cat->id }}" 
+                                    {{ request('categoria_id') == $cat->id ? 'selected' : '' }}>
+                                {{ $cat->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                
+                {{-- Checkbox para stock bajo --}}
+                <div>
+                    <label>
+                        <input type="checkbox" 
+                               name="stock_bajo" 
+                               value="1"
+                               {{ request('stock_bajo') ? 'checked' : '' }}>
+                        Solo cursos con stock bajo (< 10)
+                    </label>
+                </div>
+                
+                {{-- Botones --}}
+                <div>
+                    <button type="submit" style="padding: 8px 15px; background: #0066cc; color: white; border: none; cursor: pointer;">
+                        🔍 Buscar
+                    </button>
+                    <a href="{{ route('cursos.index') }}" style="padding: 8px 15px; background: #666; color: white; text-decoration: none; display: inline-block;">
+                        🔄 Limpiar filtros
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
     @if($cursos->isEmpty())
     <x-alerta tipo="alerta">
         {{ __('messages.no_courses') }}
     </x-alerta>
+    
     @else
 
     <a href="{{ route('carrito.ver') }}" 
@@ -36,11 +91,21 @@
             <x-tarjeta-curso :curso="$curso" :mostrar-vacantes="true" />
         </li>
     @endforeach
+    {{-- Información de resultados --}}
+    <div style="margin: 20px 0; padding: 10px; background: #e8f4f8; border-left: 4px solid #0066cc;">
+        <p>
+            📊 Mostrando {{ $cursos->firstItem() ?? 0 }} - {{ $cursos->lastItem() ?? 0 }} 
+            de {{ $cursos->total() }} cursos
+        </p>
+    </div>
+
     @endif
     
-    <div class="mt-4">
-        {{ $cursos->links() }}
+    {{-- Enlaces de paginación --}}
+    <div style="margin: 20px 0;">
+        {{ $cursos->appends(request()->query())->links() }}
     </div>
+
 
 
     </x-app-layout>

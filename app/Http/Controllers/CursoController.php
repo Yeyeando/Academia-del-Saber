@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCursoRequest;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Curso;
@@ -16,18 +17,31 @@ class CursoController extends Controller
     public function index(Request $request)
     {
         $page = $request->get('page', 1);
+        $texto = $request->get('busqueda');
+        $categoria = $request->get('categoria_id');
+        $pocas = $request->get('stock_bajo');
 
-        $cursos = Cache::remember("cursos_page_{$page}", 3600, function () use ($page) {
-            return Curso::orderBy('id', 'desc')->paginate(15, ['*'], 'page', $page);
+        // Clave de caché única según filtros
+        $cacheKey = "cursos_page_{$page}_txt_{$texto}_cat_{$categoria}_pocas_{$pocas}";
+
+        $cursos = Cache::remember($cacheKey, 3600, function () use ($page, $texto, $categoria, $pocas) {
+            return Curso::query()
+                ->buscar($texto)
+                ->porCategoria($categoria)
+                ->when($pocas, fn($q) => $q->pocasVacantes())
+                ->orderBy('id', 'desc')
+                ->paginate(15, ['*'], 'page', $page);
         });
 
-        $cursoClass = Curso::class;
+        $categorias = Categoria::orderBy('nombre')->get();
 
         return view('cursos.index', [
             'cursos' => $cursos,
-            'cursoClass' => $cursoClass,  
+            'categorias' => $categorias
         ]);
     }
+
+
 
 
     public function create()

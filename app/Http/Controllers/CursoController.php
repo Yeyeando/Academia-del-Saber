@@ -30,7 +30,7 @@ class CursoController extends Controller
                 ->porCategoria($categoria)
                 ->when($pocas, fn($q) => $q->pocasVacantes())
                 ->orderBy('id', 'desc')
-                ->paginate(15, ['*'], 'page', $page);
+                ->paginate(10, ['*'], 'page', $page);
         });
 
         $categorias = Categoria::orderBy('nombre')->get();
@@ -124,11 +124,11 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
         $this->authorize('delete', $curso);
-    
+
         $curso->delete();
-    
+
         Cache::flush();
-    
+
         return redirect()->route('cursos.index')
             ->with('status', 'Curso eliminado');
     }

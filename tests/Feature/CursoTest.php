@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Carbon;
+
 
 class CursoTest extends TestCase
 {
@@ -52,14 +54,13 @@ class CursoTest extends TestCase
             'vacantes' => 50,
             'categoria_id' => $categoria->id,
             'foto' => $foto,
-            'fecha_inicio' => '2025-12-01',
+            'fecha_inicio' => '2025-12-12',
             'fecha_fin' => '2025-12-31',
         ]);
 
         $response->assertRedirect(route('cursos.index'));
         $this->assertDatabaseHas('cursos', ['nombre' => 'Curso Nuevo']);
         Storage::disk('public')->assertExists('cursos/' . $foto->hashName());
-
     }
 
     /** @test */
@@ -78,7 +79,7 @@ class CursoTest extends TestCase
             'vacantes' => 50,
             'categoria_id' => $categoria->id,
             'foto' => $foto,
-            'fecha_inicio' => '2025-12-01',
+            'fecha_inicio' => '2025-12-23',
             'fecha_fin' => '2025-12-31',
         ]);
 
@@ -100,7 +101,7 @@ class CursoTest extends TestCase
             'vacantes' => 50,
             'categoria_id' => $categoria->id,
             'foto' => $foto,
-            'fecha_inicio' => '2025-12-01',
+            'fecha_inicio' => '2025-12-27',
             'fecha_fin' => '2025-12-31',
         ]);
 

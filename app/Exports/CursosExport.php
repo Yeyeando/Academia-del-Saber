@@ -22,34 +22,35 @@ class CursosExport
         ->setCellValue('B1', 'Nombre')
         ->setCellValue('C1', 'Descripción')
         ->setCellValue('D1', 'Precio (€)')
-        ->setCellValue('E1', 'Stock')
-        ->setCellValue('F1', 'Fecha de Creación');
+        ->setCellValue('E1', 'Vacantes')
+        ->setCellValue('F1', 'Fecha inicio')
+        ->setCellValue('G1', 'Fecha fin');
 
     // Estilos para los encabezados
-    $sheet->getStyle('A1:F1')->getFont()->setBold(true);
-    $sheet->getStyle('A1:F1')->getFont()->setSize(12);
-    $sheet->getStyle('A1:F1')->getFill()->setFillType(Fill::FILL_SOLID);
-    $sheet->getStyle('A1:F1')->getFill()->getStartColor()->setRGB('28A745');
-    $sheet->getStyle('A1:F1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $sheet->getStyle('A1:G1')->getFont()->setBold(true);
+    $sheet->getStyle('A1:G1')->getFont()->setSize(12);
+    $sheet->getStyle('A1:G1')->getFill()->setFillType(Fill::FILL_SOLID);
+    $sheet->getStyle('A1:G1')->getFill()->getStartColor()->setRGB('28A745');
+    $sheet->getStyle('A1:G1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+    $sheet->getStyle('A1:G1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
     // Llenar los datos de los cursos
     $cursos = Curso::all();
     $row = 2;
     foreach ($cursos as $curso) {
-        // Verificar si created_at es null
-        $fechaCreacion = $curso->created_at ? $curso->created_at->format('d/m/Y H:i') : 'Fecha no disponible';
 
         $sheet->setCellValue('A' . $row, $curso->id)
             ->setCellValue('B' . $row, $curso->nombre)
             ->setCellValue('C' . $row, $curso->descripcion ?? 'Sin descripción')
             ->setCellValue('D' . $row, number_format($curso->precio, 2, ',', '.') . ' €')
-            ->setCellValue('E' . $row, $curso->stock)
-            ->setCellValue('F' . $row, $fechaCreacion); // Asignar fecha o valor por defecto
+            ->setCellValue('E' . $row, $curso->vacantes)
+            ->setCellValue('F' . $row, $curso->fecha_inicio)
+            ->setCellValue('G' . $row, $curso->fecha_fin);
         $row++;
     }
 
     // Ajustar ancho de las columnas
-    foreach (range('A', 'F') as $column) {
+    foreach (range('A', 'G') as $column) {
         $sheet->getColumnDimension($column)->setAutoSize(true);
     }
 

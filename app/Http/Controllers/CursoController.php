@@ -7,6 +7,8 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Curso;
+use App\Models\User;
+use App\Notifications\NuevoCursoNotificacion;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -64,6 +66,12 @@ class CursoController extends Controller
         $curso = Curso::create($data);
 
         Cache::flush();
+
+        $admin = User::find(1);
+        if ($admin) {
+            $admin->notify(new NuevoCursoNotificacion($curso));
+        }
+
 
         return redirect('/cursos')
             ->with('status', 'Curso creado: ' . $curso->nombre);

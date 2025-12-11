@@ -73,6 +73,15 @@
             </div>
         </form>
     </div>
+    <a href="{{ route('cursos.export.pdf') }}" 
+   style="background: #2E75B6; color: white; padding: 10px;">
+    📄 Descargar PDF
+    </a>
+    <a href="{{ route('cursos.export.excel') }}"
+        class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+        📄 Exportar a Excel
+    </a>
+
     @if($cursos->isEmpty())
     <x-alerta tipo="alerta">
         {{ __('messages.no_courses') }}

@@ -27,7 +27,12 @@ Route::get('/cursos/{curso}', [CursoController::class, 'show'])
     ->whereNumber('curso')
     ->name('cursos.show');
     
+Route::get('/cursos/export-pdf', [CursoController::class, 'exportPdf'])
+    ->name('cursos.export.pdf');
 
+Route::get('/cursos/export-excel', [CursoController::class, 'exportExcel'])
+    ->name('cursos.export.excel');
+    
 /*
 |--------------------------------------------------------------------------
 | Rutas Protegidas

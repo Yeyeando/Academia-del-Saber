@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Curso;
 use App\Models\User;
 use App\Notifications\NuevoCursoNotificacion;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Exports\CursosExport;
 
 class CursoController extends Controller
 {
@@ -140,5 +142,19 @@ class CursoController extends Controller
         return redirect()->route('cursos.index')
             ->with('status', 'Curso eliminado');
     }
+
+    public function exportPdf()
+    {
+        $cursos = Curso::all();
+        $pdf = Pdf::loadView('cursos.pdf', ['cursos' => $cursos]);
+        return $pdf->download('catalogo.pdf');
+    }
+
+    public function exportExcel()
+    {
+        // Llamar a la función export() de la clase CursosExport
+        return (new CursosExport())->export();
+    }
+
 
 }

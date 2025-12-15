@@ -13,6 +13,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Exports\CursosExport;
+use App\Events\CursoCreado;
 
 class CursoController extends Controller
 {
@@ -66,6 +67,8 @@ class CursoController extends Controller
         }
 
         $curso = Curso::create($data);
+
+        event(new CursoCreado($curso));
 
         Cache::flush();
 

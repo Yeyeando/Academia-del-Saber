@@ -94,12 +94,15 @@
         🛒 Ver Carrito
     </a>
 
-
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     @foreach ($cursos as $curso)
-        <li>
-            <x-tarjeta-curso :curso="$curso" :mostrar-vacantes="true" />
-        </li>
+        <x-tarjeta-curso :curso="$curso" :mostrar-vacantes="true" />
     @endforeach
+</div>
+
+
+
+    
     {{-- Información de resultados --}}
     <div style="margin: 20px 0; padding: 10px; background: #e8f4f8; border-left: 4px solid #0066cc;">
         <p>

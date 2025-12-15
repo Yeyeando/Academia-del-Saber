@@ -5,7 +5,7 @@
 @if ($errors->any())
     <ul>
         @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            <li class="text-red-600">{{ $error }}</li>
         @endforeach
     </ul>
 @endif
@@ -57,8 +57,8 @@
 
     <br><br>
 
-    <a href="{{ route('cursos.index') }}">{{ __('messages.back_to_list') }}</a>
-    <button type="submit">{{ __('messages.save') }}</button>
+    <a href="{{ route('cursos.index') }}"class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition">{{ __('messages.back_to_list') }}</a>
+    <button type="submit" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition">{{ __('messages.save') }}</button>
 </form>
 
 {{-- BOTÓN ELIMINAR (solo admin gracias a policy) --}}

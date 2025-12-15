@@ -58,29 +58,24 @@ class CursoController extends Controller
     public function store(StoreCursoRequest $request)
     {
         $this->authorize('create', Curso::class);
-
+    
         $data = $request->validated();
-
+    
         if ($request->hasFile('foto')) {
-            $rutaFoto = $request->file('foto')->store('cursos', 'public');
-            $data['foto'] = $rutaFoto;
+            $data['foto'] = $request->file('foto')->store('cursos', 'public');
         }
-
+    
         $curso = Curso::create($data);
-
+    
         event(new CursoCreado($curso));
-
+    
         Cache::flush();
-
-        $admin = User::find(1);
-        if ($admin) {
-            $admin->notify(new NuevoCursoNotificacion($curso));
-        }
-
-
-        return redirect('/cursos')
+    
+        return redirect()
+            ->route('cursos.index')
             ->with('status', 'Curso creado: ' . $curso->nombre);
     }
+
 
     public function show($id)
     {

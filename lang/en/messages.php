@@ -5,6 +5,7 @@ return [
     'courses' => 'Courses',
     'course_list' => 'Course list',
     'new_course' => 'New course',
+    'edit_course' => 'Edit course',
     'name' => 'Name',
     'price' => 'Price',
     'vacantes' => 'Vacancies',

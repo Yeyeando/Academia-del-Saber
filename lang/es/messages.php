@@ -5,6 +5,7 @@ return [
     'courses' => 'Cursos',
     'course_list' => 'Listado de cursos',
     'new_course' => 'Nuevo curso',
+    'edit_course' => 'Editar curso',
     'name' => 'Nombre',
     'price' => 'Precio',
     'vacantes' => 'Vacantes',
@@ -27,6 +28,6 @@ return [
     'no_photo' => 'Este curso no tiene foto',
 
     // usados en enlaces
-    'back_to_list' => '← Volver al listado de cursos',
-    'see_details' => '← Ver detalle',
+    'back_to_list' => 'Volver al listado de cursos',
+    'see_details' => 'Ver detalle',
 ];

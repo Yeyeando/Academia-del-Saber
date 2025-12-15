@@ -13,6 +13,8 @@ class NotificarUsuariosCursoCreado implements ShouldQueue
     {
         $curso = $event->curso;
 
+        Log::info('Listener ejecutado para curso '.$curso->id);
+
         $usuarios = User::where('role', 'admin')->get();
 
         foreach ($usuarios as $usuario) {

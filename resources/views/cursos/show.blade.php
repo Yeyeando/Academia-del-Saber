@@ -36,7 +36,7 @@
         @endif
         @can('update', $curso)
         <a href="{{ route('cursos.edit', $curso->id) }}" 
-           class="text-blue-600 font-semibold">
+           style="color: white; background: rgb(252, 120, 12); padding: 8px 15px; border: none; margin-top: 20px;">
             ✏️ Editar curso
         </a>
     @endcan
@@ -45,7 +45,7 @@
         <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
-            <button class="text-red-600 font-semibold"
+            <button style="color: white; background: red; padding: 8px 15px; border: none; margin-top: 20px;"
                 onclick="return confirm('¿Seguro que quieres eliminar este curso?')">
                 🗑 Eliminar curso
             </button>
@@ -54,6 +54,6 @@
 
     @endauth
     
-    <a href="{{ route('cursos.index') }}">{{ __('messages.back_to_list') }}</a>
+    <a class="inline-block bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition"href="{{ route('cursos.index') }}">{{ __('messages.back_to_list') }}</a>
     
 </x-app-layout>

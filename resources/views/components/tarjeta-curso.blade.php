@@ -4,11 +4,11 @@
     @if($curso->foto)
         <img src="{{ asset('storage/' . $curso->foto) }}" 
              alt="{{ $curso->nombre }}" 
-             class="max-w-full h-auto mb-4 p-16">
+             class="max-w-full h-auto mb-4 p-16 border-4 border-stone-950">
      @else
         <img src="{{ asset('storage/cursos/cip_centro_de_formacion_logo.jpg') }}" 
              alt="Imagen por defecto" 
-             class="max-w-full h-auto mb-4 p-16">
+             class="max-w-full h-auto mb-4 p-16 border-4 border-stone-950">
     @endif
 
     <h3 class="text-lg font-semibold">{{ $curso->nombre }}</h3>

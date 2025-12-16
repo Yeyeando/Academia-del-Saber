@@ -6,6 +6,7 @@ return [
     'course_list' => 'Listado de cursos',
     'new_course' => 'Nuevo curso',
     'edit_course' => 'Editar curso',
+    'category' => 'categoría del curso',
     'name' => 'Nombre',
     'price' => 'Precio',
     'vacantes' => 'Vacantes',

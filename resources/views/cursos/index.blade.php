@@ -10,7 +10,7 @@
         <p>¿Listo para mejorar tus capacidades? Cada uno de nuestros cursos te enseñaran que 
             no hay nada imposible con una buena base, y aquí la impartimos de la mejor manera.
         </p>
-        <p><strong>!Hora de crecer!</strong></p>
+        <p><strong>¡Hora de crecer!</strong></p>
     </x-tarjeta-destacada>
 
     
